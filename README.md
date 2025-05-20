@@ -48,7 +48,7 @@ Run the script:
 
     python3 keygen.py
 
-Then put the generated secret.key file into the keys folder in the client root directory.
+Then put the generated secret.key file into the "keys" folder in the server root directory.
 
 Then put the client ID into the client folder and run the client:
 
