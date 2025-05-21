@@ -1,0 +1,23 @@
+import sqlite3
+
+def create_db():
+    conn = sqlite3.connect('db.sqlite')
+    cursor = conn.cursor()
+    
+    # Создание таблиц
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL,
+        public_key TEXT NOT NULL
+    )''')
+    
+    cursor.execute('''CREATE TABLE IF NOT EXISTS commands (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        command_name TEXT NOT NULL,
+        description TEXT
+    )''')
+    
+    conn.commit()
+    conn.close()
+
+create_db()
