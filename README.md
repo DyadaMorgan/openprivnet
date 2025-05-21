@@ -38,7 +38,7 @@ PrivNet is:
 
  Go to the server folder and start the server:
 
-    python server.py
+    python3 server.py
 
 🔐 How to generate a key?
 
@@ -52,7 +52,7 @@ Then put the generated secret.key file into the "keys" folder in the server root
 
 Then put the client ID into the client folder and run the client:
 
-    python client.py
+    python3 client.py
 
 Configure the server in config.json:
 
