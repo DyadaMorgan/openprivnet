@@ -50,6 +50,10 @@ Run the script:
 
 Then put the generated secret.key file into the "keys" folder in the server root directory.
 
+install dependency for client:
+
+    pip install pyqt5
+
 Then put the client ID into the client folder and run the client:
 
     python3 client.py
