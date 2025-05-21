@@ -57,8 +57,8 @@ Then put the client ID into the client folder and run the client:
 Configure the server in config.json:
 
     {
-      "ip": "192.168.192.142",          // Server IP address
-      "port": 12345,                    // Server port
+      "ip": "127.0.0.1",          // Server IP address
+      "port": 25151,                    // Server port
       "key_path": "keys/secret.key",   // Path to the secret key
       "encryption": true,               // Enable encryption: true / disable encryption: false
       "welcome_text": "&gWelcome to PrivNet! Type /nick <name> and /join <channel>."  // Welcome message
