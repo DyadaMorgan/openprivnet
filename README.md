@@ -147,9 +147,7 @@ PrivNet does not keep logs, records, or backups. Whatever you write is read eith
 
 ⚠️ P.S.
 
-If you are a Russian fascist supporting Russian aggression against Ukraine, run this code only on TempleOS.
-Yes, that’s what Uncle Morgan said.
-For you — a castrated ASCII terminal with God on Alt+F12.
+If you support the military aggression against Ukraine, please do not use this code. This project was created by people who stand against totalitarianism, war, and for freedom.
 
 People, please make an Android client. I will be very grateful.
 
