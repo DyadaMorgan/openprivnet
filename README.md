@@ -1,100 +1,146 @@
-🔐 PrivNet — A New Take on Old IRC
+# 🔐 PrivNet — Secure Minimalist Encrypted IRC
 
-PrivNet is a minimalist, secure, and encrypted IRC clone. It keeps the simplicity philosophy of classic IRC protocols but adapts to modern realities: privacy, encryption, and readiness to work in offline or limited networks.
+PrivNet is a modern network protocol — a minimalist, fully encrypted alternative to classic IRC protocols. It's designed for communication under limited internet conditions, full isolation, or simply for private, surveillance-free conversations.
+## 🧠 What is PrivNet?
 
-🧠 What is it?
+## PrivNet is:
 
-PrivNet is:
+  A server and client for IRC-style text communication
 
- A server and client for text communication in the IRC style.
+  Full end-to-end encryption of all messages
 
- Fully encrypted messaging (end-to-end encryption).
+  Minimal dependencies — maximum reliability
 
- Minimal dependencies, maximum reliability.
+  Flexible architecture: works in public networks, mesh networks, over radio, or in fully offline environments (as low as 10 Kbps)
 
- Flexible architecture: works in public networks, mesh networks, poor internet conditions, or complete isolation. (Tested at 10 Kbit/s)
+  Ideal for hackers, role-players, autonomous communities, and anyone seeking privacy
 
- Suitable for hacker communities, dystopias, role-playing games, or anyone who just wants to chat without surveillance.
+## 📡 The openPrivNet Protocol
 
-🔧 What is it written in?
+PrivNet uses its own encrypted text-based TCP protocol. Messages are sent in the format:
 
-  PrivNet is written in Python 3 and uses:
+4 bytes length (big endian) + message body (possibly encrypted)
 
-  socket for network communication,
+If encryption is enabled, it uses Fernet (AES-128-GCM). Example of sending data:
 
-  threading or asyncio (depending on implementation),
+sock.sendall(len(data).to_bytes(4, 'big') + data)
 
-  cryptography or PyNaCl for encryption,
+## 📲 Protocol Commands (typed in chat with /)
+Command	Purpose
+/nick <name>	Set nickname
+/prefix <prefix>	Set prefix before nickname
+/join <channel>	Join a channel
+/leave	Leave current channel
+/who	List users in the channel
+/list	Show all channels
+/msg <nick> <text>	Send a private message
+/plugin_reload	Reload plugins
+/help	Show help
+/version	Server version
+/...	Additional plugin commands
 
-  minimal dependencies to work even in the poorest environments.
+## 💬 Message Sending
 
-⚙️ Installation and setup
+After setting a nickname and joining a channel, all lines not starting with / are treated as messages and sent to the channel. Message display format:
 
-  Install Python 3.9+
+    [12:00] [#general] DyadaMorgan: Hello
 
-  Install dependencies:
+Messages and UI support ANSI color codes (e.g., &g, &r).
+## 🔌 Plugin System
+
+  Plugins are stored in the plugins/ folder.
+
+  Active plugins are listed in plugins.cfg.
+
+  Plugins implement init_plugin(channels, globals) and add their own commands.
+
+## 🧱 Database
+
+SQLite is used:
+
+  CREATE TABLE channels(name TEXT PRIMARY KEY);
+
+Channels are stored in channels.db and loaded at startup.
+## 🔧 Installation and Launch
+## 🪟 Windows:
+
+ Install Python 3.9+
+
+ Press Win+R and enter:
+
+    cmd
+
+## Install dependencies:
 
     pip install cryptography
 
- Go to the server folder and start the server:
+## Generate key:
+
+    cd keygen
+    python3 keygen.py
+
+## 🖥️ Configure config.json
+
+    {
+      "ip": "127.0.0.1", // IP address
+      "port": 25151, // Port
+      "key_path": "keys/secret.key", // Path to the encryption key
+      "encryption": true, // Encryption enabled: 'true', encryption disabled: 'false'
+      "welcome_text": "&gWelcome to PrivNet! Type /nick <name> and /join <channel>." // Welcome message
+    }
+
+## Launch server:
 
     python3 server.py
 
-🔐 How to generate a key?
+Place secret.key in the keys/ folder.
 
-Go to the keygen folder.
-
-Run the script:
-
-    python3 keygen.py
-
-Then put the generated secret.key file into the "keys" folder in the server root directory.
-
-install dependency for client:
+## Install client dependencies:
 
     pip install pyqt5
 
-Then put the client ID into the client folder and run the client:
+## Launch client:
 
+    cd PrivNet-Client/
     python3 client.py
 
-Configure the server in config.json:
+## 🐧 Linux:
 
-    {
-      "ip": "127.0.0.1",          // Server IP address
-      "port": 25151,                    // Server port
-      "key_path": "keys/secret.key",   // Path to the secret key
-      "encryption": true,               // Enable encryption: true / disable encryption: false
-      "welcome_text": "&gWelcome to PrivNet! Type /nick <name> and /join <channel>."  // Welcome message
-    }
+  Install Python 3.9+
 
-Note: All messages are transmitted encrypted. Only those who know the key can read them.
+  Open terminal with Ctrl+Alt+T
 
-💻 How to compile the client on Windows / Linux
-🪟 Windows
+## Install dependencies:
 
-Install Python 3.9+ from python.org, make sure to check “Add Python to PATH” during installation.
+    pip install cryptography
 
-Open Command Prompt (cmd) and install PyInstaller:
+## Launch server:
 
-    pip install pyinstaller
+    python3 server.py
 
-To compile the client, run:
+## Generate key:
 
-    pyinstaller --onefile --windowed client.py
+    cd keygen
+    python3 keygen.py
 
---onefile — packages everything into a single executable
+Place secret.key in the keys/ folder.
 
---windowed — runs the app without a console window (GUI mode)
+## Install client dependencies:
+  
+    pip install pyqt5
 
-After compilation, the executable will appear in the dist folder.
+Launch client:
 
-🐧 Linux
+    cd PrivNet-Client/
+    python3 client.py
 
-Installing PyInstaller
+## 💻 Client Compilation
+## 🪟 Windows:
+   
+     pip install pyinstaller
+     pyinstaller --onefile --windowed client.py
 
-Depends on your distro:
-
+## 🐧 Linux:
 Ubuntu / Debian:
 
     sudo apt update
@@ -102,7 +148,7 @@ Ubuntu / Debian:
     pip3 install --user pyinstaller
 
 Fedora:
-
+  
     sudo dnf install python3-pip
     pip3 install --user pyinstaller
 
@@ -111,44 +157,53 @@ Arch Linux / Manjaro:
     sudo pacman -S python-pip
     pip install --user pyinstaller
 
-Compiling the client
+## To compile the client:
 
     pyinstaller --onefile --windowed client.py
 
-The executable will appear in the dist folder.
+The executable will appear in the dist/ folder.
+## 🚧 Features
 
-🧱 Where can it be used?
+  End-to-end encryption (Fernet AES-128-GCM)
 
-Over dial-up networks.
+  Multi-channel chat
 
-Inside networks without internet access (e.g. via radio modules, Wi-Fi P2P, Tor, I2P).
+  Plugin and custom command support
 
-In anarchic zones and autonomous communities.
+  ANSI color markup
 
-As a secure chat between survivor groups in a post-apocalyptic world.
+  No logs or message history
 
-Future plans include communication via HF radio.
+## 🧱 Use Cases
 
-Just as an alternative to regular IRC, but without message interception.
+  Dial-up connections
 
-🚧 Features
+  Offline/mesh/radio/Tor/I2P networks
 
-Encrypted chat
+  Post-apocalyptic survival communication
 
-Multiple channels
+  Regions with restricted freedom of speech
 
-Notifications and status
+  A private IRC alternative
 
-Plugin support (extensibility)
+## 📛 Important
 
-📛 Important
+PrivNet does not store logs, history, or backups. Messages are only available to sender and receiver.
+## ⚠️ P.S.
 
-PrivNet does not keep logs, records, or backups. Whatever you write is read either by the recipient or by no one.
+The creator of PrivNet is not responsible for any consequences of using this software, including but not limited to: data loss, legal issues, privacy breaches, technical failures, or direct/indirect damages.
 
-⚠️ P.S.
+Use at your own risk. It’s your responsibility to ensure the legality and safety of using PrivNet in your country, especially where private communication or cryptography is restricted.
 
-If you support the military aggression against Ukraine, please do not use this code. This project was created by people who stand against totalitarianism, war, and for freedom.
+  If you support military aggression against Ukraine — do not use this code.
+  This project is made by people who stand against war, dictatorship, and for freedom.
 
-People, please make an Android client. I will be very grateful.
+## 👥 Contributors Wanted:
 
-Glory to Ukraine! 🇺🇦
+  GUI designers (Windows/Linux/Android)
+
+  Client developers (Windows/Linux/Android)
+
+  Enthusiasts to run and test PrivNet on various platforms, including radio module support.
+
+## Thank you for your attention!
