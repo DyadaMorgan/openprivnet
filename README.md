@@ -1,3 +1,4 @@
+📄Other languages: [Українська](README.uk.md)
 # 🔐 PrivNet — Secure Minimalist Encrypted IRC
 
 PrivNet is a modern network protocol — a minimalist, fully encrypted alternative to classic IRC protocols. It's designed for communication under limited internet conditions, full isolation, or simply for private, surveillance-free conversations.
