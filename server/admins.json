@@ -1,0 +1,14 @@
+[
+  {
+    "ip": "127.0.0.1",
+    "nick": "your_nick",
+    "immunity": 999,
+    "prefix": "[&c&lOWNER&r] "
+  },
+  {
+    "ip": "192.168.0.1",
+    "nick": "admin_2",
+    "immunity": 998,
+    "prefix": "[&c&lAdministrator&r] "
+  }
+]

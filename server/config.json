@@ -1,0 +1,8 @@
+{
+  "ip": "127.0.0.1",
+  "port": 25151,
+  "key_path": "keys/secret.key",
+  "encryption": true,
+  "welcome_text": "&2Welcome to PrivNet! Write /nick <name> and /join <channel>.",
+  "max_clients": 32
+}
